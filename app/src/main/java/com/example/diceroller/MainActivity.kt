@@ -1,18 +1,3 @@
-/*
- * Copyright (C) 2020 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.example.diceroller
 
 import android.os.Bundle
@@ -21,14 +6,11 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 /**
- * This activity allows the user to roll a dice and view the result
+ * This activity allows the user to roll two dice and view the results
  * on the screen.
  */
 class MainActivity : AppCompatActivity() {
 
-    /**
-     * This method is called when the Activity is created.
-     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -41,16 +23,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Roll the dice and update the screen with the result.
+     * Roll two dice and update the screen with the results.
      */
     private fun rollDice() {
-        // Create new Dice object with 6 sides and roll it
-        val dice = Dice(6)
-        val diceRoll = dice.roll()
+        // Create two Dice objects with 6 sides and roll them
+        val dice1 = Dice(6)
+        val dice2 = Dice(6)
+        val diceRoll1 = dice1.roll()
+        val diceRoll2 = dice2.roll()
 
-        // Update the screen with the dice roll
-        val resultTextView: TextView = findViewById(R.id.textView)
-        resultTextView.text = diceRoll.toString()
+        // Update the screen with the dice rolls
+        val resultTextView1: TextView = findViewById(R.id.textViewDice1)
+        val resultTextView2: TextView = findViewById(R.id.textViewDice2)
+
+        resultTextView1.text = diceRoll1.toString()
+        resultTextView2.text = diceRoll2.toString()
     }
 }
 
@@ -58,10 +45,6 @@ class MainActivity : AppCompatActivity() {
  * Dice with a fixed number of sides.
  */
 class Dice(private val numSides: Int) {
-
-    /**
-     * Do a random dice roll and return the result.
-     */
     fun roll(): Int {
         return (1..numSides).random()
     }
