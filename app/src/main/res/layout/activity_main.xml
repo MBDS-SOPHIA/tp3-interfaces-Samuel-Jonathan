@@ -7,36 +7,72 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!-- First dice result -->
+    <!-- Slider pour choisir la valeur cible -->
+    <com.google.android.material.slider.Slider
+        android:id="@+id/slider"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:valueFrom="2.0"
+        android:valueTo="12.0"
+        android:stepSize="1.0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp" />
+
+    <!-- Affiche la valeur choisie sur le slider -->
+    <TextView
+        android:id="@+id/sliderValueText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@id/slider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="2" />
+
+    <!-- Résultat du premier dé -->
     <TextView
         android:id="@+id/textViewDice1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewDice2"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sliderValueText"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:text="1" />
 
-    <!-- Second dice result -->
+    <!-- Résultat du deuxième dé -->
     <TextView
         android:id="@+id/textViewDice2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewDice1"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:text="1" />
 
-    <!-- Roll button -->
+    <!-- Message de statut (Gagné ou Perdu) -->
+    <TextView
+        android:id="@+id/statusTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/textViewDice2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Résultat" />
+
+    <!-- Bouton pour lancer les dés -->
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/roll"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Lancer les dés"
+        app:layout_constraintTop_toBottomOf="@id/statusTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
