@@ -1,9 +1,13 @@
 package com.example.diceroller
 
 import android.os.Bundle
-import android.widget.*
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.TranslateAnimation
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.slider.Slider
+import com.github.jinatonic.confetti.CommonConfetti
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,10 +31,9 @@ class MainActivity : AppCompatActivity() {
 
         // Ajouter un listener pour détecter les changements sur le slider
         slider.addOnChangeListener { _, value, _ ->
-            // Met à jour le texte pour afficher la valeur sélectionnée
+            // Met à jour la valeur sélectionnée
             sliderValueText.text = "Nombre sélectionné : ${value.toInt()}"
-            // Met à jour dynamiquement la description pour le lecteur d'écran
-            slider.contentDescription = "Valeur cible sélectionnée : ${value.toInt()}"
+
             // Lance automatiquement les dés
             rollDice(value.toInt())
         }
@@ -56,9 +59,42 @@ class MainActivity : AppCompatActivity() {
         // Vérifie si la somme est égale à la valeur cible
         if (sum == targetNumber) {
             statusTextView.text = "Félicitations ! Vous avez gagné !"
+
+            // Animer les dés
+            animateDice(resultTextView1)
+            animateDice(resultTextView2)
+
+            // Affiche des paillettes
+            showConfetti()
         } else {
             statusTextView.text = "Désolé, vous avez perdu."
         }
+    }
+
+    /**
+     * Animer les dés (bouger de haut en bas).
+     */
+    private fun animateDice(view: View) {
+        val animation = TranslateAnimation(0f, 0f, -50f, 50f)
+        animation.duration = 500
+        animation.repeatCount = 3
+        animation.repeatMode = Animation.REVERSE
+        view.startAnimation(animation)
+    }
+
+    /**
+     * Afficher des paillettes.
+     */
+    private fun showConfetti() {
+        CommonConfetti.rainingConfetti(
+            findViewById(R.id.mainLayout),  // ID du parent layout
+            intArrayOf(
+                android.graphics.Color.RED,
+                android.graphics.Color.GREEN,
+                android.graphics.Color.BLUE,
+                android.graphics.Color.YELLOW
+            )
+        ).stream(3000) // Durée des confettis en millisecondes
     }
 }
 
